@@ -12,7 +12,7 @@ pipeline {
         IMAGE_NAME = "list-gists"
         IMAGE_TAG = "0.1.0"
         // Actual project folder on Windows
-        PROJECT_DIR = "C:\\Users\\sudar\\PycharmProjects\\equal-experts-nonchalant-blissful-luminous-vision-40ed1ed446c5"
+//        PROJECT_DIR = "C:\\Users\\sudar\\PycharmProjects\\equal-experts-nonchalant-blissful-luminous-vision-40ed1ed446c5"
     }
 
     stages {
@@ -22,6 +22,14 @@ pipeline {
                     // Set a descriptive build name
                     currentBuild.displayName = "${IMAGE_NAME}:${IMAGE_TAG}-#${env.BUILD_NUMBER}"
                     echo "Running on host at: ${env.PROJECT_DIR}"
+                }
+            }
+        }
+
+        stage('Git Checkout') {
+            steps {
+                script {
+                    git branch: 'main', credentialsId: 'github-sud', url: 'https://github.com/Sudarshan-TN/gist-demo.git'
                 }
             }
         }
