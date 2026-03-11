@@ -41,7 +41,7 @@ async def get_gists_for_user(user: str = Path(pattern=r"^[a-zA-Z0-9\-\_]+$"),
         logger.error(f"GitHub API request failed for user={user}: {exc}")
         raise HTTPException(status_code=502, detail="Failed to reach GitHub API")
 
-    return response.json()
+    return response.json() + "MODIFIED BY SUDAR"
 
 
 if __name__ == "__main__":
