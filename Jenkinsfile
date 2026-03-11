@@ -15,7 +15,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "list-gists"
-        IMAGE_TAG = ""
         // Actual project folder on Windows
 //        PROJECT_DIR = "C:\\Users\\sudar\\PycharmProjects\\equal-experts-nonchalant-blissful-luminous-vision-40ed1ed446c5"
 
