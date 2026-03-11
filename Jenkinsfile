@@ -70,7 +70,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat "docker run -d -p 8080:8080 --cap-drop=ALL --security-opt=no-new-privileges:true ${IMAGE_NAME}:${BUILD_NUMBER}"
+                script {
+                    // Remove existing container if it exists
+                    bat "docker rm -f ${IMAGE_NAME} || ver > nul"
+                    // Run new container with fixed name
+                    bat "docker run -d --name ${IMAGE_NAME} -p 8080:8080 --cap-drop=ALL --security-opt=no-new-privileges:true ${IMAGE_NAME}:${BUILD_NUMBER}"
+                }
             }
         }
     }
