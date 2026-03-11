@@ -13,6 +13,7 @@ pipeline {
         IMAGE_TAG = "0.1.0"
         // Actual project folder on Windows
 //        PROJECT_DIR = "C:\\Users\\sudar\\PycharmProjects\\equal-experts-nonchalant-blissful-luminous-vision-40ed1ed446c5"
+
     }
 
     stages {
@@ -37,30 +38,28 @@ pipeline {
 
         stage('Setup & Install') {
             steps {
-                dir("${env.PROJECT_DIR}") {
-                    bat "uv --version"
-                    bat "uv sync --frozen"
-                }
+
+                bat "uv --version"
+                bat "uv sync --frozen"
+
             }
         }
 
         stage('Run Tests') {
             steps {
-                dir("${env.PROJECT_DIR}") {
-                    script {
-                        bat "uv run pytest -v --junitxml=results.xml"
-                    }
-                    // Archive test results
-                    junit 'results.xml'
+
+                script {
+                    bat "uv run pytest -v --junitxml=results.xml"
                 }
+                // Archive test results
+                junit 'results.xml'
+
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir("${env.PROJECT_DIR}") {
                     bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-                }
             }
         }
     }
