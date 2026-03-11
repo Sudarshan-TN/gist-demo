@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Set a descriptive build name
-                    currentBuild.displayName = "${IMAGE_NAME}:${IMAGE_TAG}-#${env.BUILD_NUMBER}"
+                    currentBuild.displayName = "${IMAGE_NAME}:#${env.BUILD_NUMBER}"
                     echo "Running on host at: ${env.PROJECT_DIR}"
                     cleanWs()
 
