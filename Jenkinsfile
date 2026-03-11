@@ -15,7 +15,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "list-gists"
-        IMAGE_TAG = "0.1.0"
+        IMAGE_TAG = env.BUILD_NUMBER
         // Actual project folder on Windows
 //        PROJECT_DIR = "C:\\Users\\sudar\\PycharmProjects\\equal-experts-nonchalant-blissful-luminous-vision-40ed1ed446c5"
 
@@ -29,6 +29,7 @@ pipeline {
                     currentBuild.displayName = "${IMAGE_NAME}:${IMAGE_TAG}-#${env.BUILD_NUMBER}"
                     echo "Running on host at: ${env.PROJECT_DIR}"
                     cleanWs()
+
                 }
             }
         }
@@ -70,7 +71,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat "docker run -d -p 8080:8080 --cap-drop=ALL --security-opt=no-new-privileges:true list-gists:0.1.0"
+                bat "docker run -d -p 8080:8080 --cap-drop=ALL --security-opt=no-new-privileges:true ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
     }
