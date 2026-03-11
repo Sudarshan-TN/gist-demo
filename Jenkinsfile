@@ -22,6 +22,7 @@ pipeline {
                     // Set a descriptive build name
                     currentBuild.displayName = "${IMAGE_NAME}:${IMAGE_TAG}-#${env.BUILD_NUMBER}"
                     echo "Running on host at: ${env.PROJECT_DIR}"
+                    cleanWs()
                 }
             }
         }
