@@ -62,6 +62,12 @@ pipeline {
                     bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
+
+        stage('Deploy') {
+            steps {
+                bat "docker run -d -p 8080:8080 --cap-drop=ALL --security-opt=no-new-privileges:true list-gists:0.1.0"
+            }
+        }
     }
 
     post {
