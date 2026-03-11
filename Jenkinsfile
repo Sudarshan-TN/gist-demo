@@ -6,7 +6,12 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES')
             disableConcurrentBuilds()
             buildDiscarder(logRotator(numToKeepStr: '5'))
+
         }
+
+    triggers {
+        pollSCM('* * * * *')
+    }
 
     environment {
         IMAGE_NAME = "list-gists"
